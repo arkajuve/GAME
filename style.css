@@ -1,0 +1,39 @@
+body {
+    background-color: rgb(133, 235, 255);
+}
+
+.playground {
+    position: relative;
+    background-image: url(https://cdnb.artstation.com/p/assets/images/images/020/154/249/large/james-mornan-game-colours-2.jpg?1566589577);
+    background-size: contain;
+    position: relative;
+    height: 600px;
+    width: 1200px;
+    border: 1px solid blue;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3%;
+}
+
+.player {
+    position: absolute;
+    background-color: red;
+    width: 20px;
+    height: 20px;
+    bottom: 200px;
+}
+
+
+
+.stein {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: gray;
+    top: 400px;
+}
+
+.punkte {
+    font-size: 100px;
+    color: violet;
+}
