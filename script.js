@@ -1,5 +1,5 @@
 var spieler = document.querySelector(".player");
-spieler.style.left = "0px";
+spieler.style.left = "300px";
 
 var punkteAnzeige = document.querySelector(".punkte");
 var score = 0;
@@ -12,13 +12,16 @@ var backgroundPosition = 0;
 var sprung = 0;
 let jump = false;
 
+var kollision = new Audio("kollision.mp3");
+var jumpsound = new Audio("jump.mp3");
+
 function loop() {
-  //background
+  //background bewegung
   backgroundPosition = backgroundPosition + 6;
   spielfeld.style.backgroundPosition = `-${backgroundPosition}px 0`;
 
   //spieler
-  if (parseInt(spieler.style.top) < 50) {
+  if (parseInt(spieler.style.top) < 80) {
     spieler.style.top = parseInt(spieler.style.top) + 5 + "px";
   }
 
@@ -27,29 +30,35 @@ function loop() {
     var h = document.createElement("div");
     h.classList.add("pilz");
     h.style.bottom = "200px";
-    h.style.right = "0px";
+    h.style.right = "-10px";
     spielfeld.appendChild(h);
   }
 
   //pilze
+  //wie schnell die pilze nacheinander einblenden
   var pilze = document.querySelectorAll(".pilz");
   for (var pilz of pilze) {
     pilz.style.right = parseInt(pilz.style.right) + 6 + "px";
-    if (parseInt(pilz.style.right) > 1180) {
+    if (parseInt(pilz.style.right) > 1110) {
       pilz.parentNode.removeChild(pilz);
     }
   }
 
   //score
   if (parseInt(spieler.style.top) > 0) {
-    score = score + 1;
+    score = score + 10;
     punkteAnzeige.textContent = score;
   }
 
+  //sound beim springen
+  if (keyboard(32)) {
+    jumpsound.play();
+  }
+
   //collision
+  //wenn kollision passiert, dann auf gameoverseite geschickt
   if (anyCollision(spieler, pilze)) {
     location.href = "gameover.html";
-    return;
   }
 
   //jump
@@ -60,13 +69,14 @@ function loop() {
   }
 
   if (parseInt(spieler.style.top) < 310) {
-    sprung = sprung - 0.1;
+    sprung = sprung - 0.25;
   } else {
     sprung = 0;
     spieler.style.top = "310px";
     jump = false;
   }
 
+  //wenn man springt, ein anderes Bild als wenn man nicht springt
   if (jump) {
     spieler.style.backgroundImage = "url(wurm_jump.png)";
   } else {
