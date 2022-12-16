@@ -12,7 +12,6 @@ var backgroundPosition = 0;
 var sprung = 0;
 let jump = false;
 
-var kollision = new Audio("kollision.mp3");
 var jumpsound = new Audio("jump.mp3");
 
 function loop() {
